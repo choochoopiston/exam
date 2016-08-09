@@ -11,7 +11,7 @@
   <% comments.each do |comment| %>
     <% unless comment.id.nil? %>
 
-  <div class="row" id="comment_<%= comment.id %>" style="padding:5px;">
+  <div class="row" style="padding:5px;">
     <div class="col-sm-1 control-label" style="padding:3px 0 0 25px;">
       <%= profile_img_ratio(comment.user, 30, 30) %>
     </div>
@@ -20,7 +20,7 @@
       <% if comment.user == current_user %>
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
         <ul class="dropdown-menu">
-          <li><%= link_to '編集', edit_topic_comment_path(topic, comment) %></li>
+          <li><%= link_to '編集', edit_topic_comment_path(topic, comment), remote: true %></li>
           <li><%= link_to '削除', topic_comment_path(topic, comment), method: :delete, remote: true, data: { confirm: '本当に削除していいですか？' } %></li>
         </ul>
       <% else %>
@@ -28,7 +28,7 @@
       </br>
       <span class="font_s"><%= comment.created_at.strftime("%m/%d/%y at %l:%M %p") %></span>
     </div>
-    <div class="col-sm-8" style="word-wrap:break-word;">
+    <div class="col-sm-8" id="comment_<%= comment.id %>" style="word-wrap:break-word;">
       <%= simple_format(comment.content) %>
     </div>
   </div>

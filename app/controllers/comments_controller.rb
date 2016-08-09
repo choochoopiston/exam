@@ -19,6 +19,23 @@ class CommentsController < ApplicationController
 
   end
   
+  def edit
+    @comment = Comment.find(params[:id])
+    @topic = @comment.topic
+    respond_to do |format|
+        format.js
+    end
+  end
+
+  def update
+    @comment = Comment.find(params[:id])
+    @comment.update(comment_params)
+    @topic = @comment.topic
+    respond_to do |format|
+        format.js
+    end
+  end
+  
   # コメントを保存、投稿するためのアクションです。
   def create
     # ログインユーザーに紐付けてインスタンス生成するためbuildメソッドを使用します。
