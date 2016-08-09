@@ -1,0 +1,71 @@
+.navbar-default {
+    border: 0;
+    padding: 5px 25px;
+
+}
+.navbar {
+    background-color: transparent;
+    color: white;
+    margin-bottom: 0px;
+}
+.navbar-default {
+  .navbar-brand {
+    color: white;
+    font-size: 250%;
+    font-weight: bold;
+    &:hover {
+      color: white;
+    }
+  }
+  .navbar-nav > li > a {
+    color: white;
+    &:hover, &:focus {
+      color: #ccc;
+    }
+  }
+  .navbar-nav > .open > a {
+    background-color: transparent;
+    color: white;
+    &:hover, &:focus {
+      background-color: transparent;
+      color: white;
+    }
+  }
+}
+
+
+@media (max-width: 767px) {
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: white;
+
+    &:hover, &:focus {
+      color: #ccc;
+    }
+  }
+  .navbar-default .navbar-toggle {
+    background-color: transparent;
+    &:hover, &:focus {
+      background-color: transparent;
+    }
+  }
+}
+
+  .form-inline > li > a {
+    color: white;
+    &:hover, &:focus {
+      color: white;
+    }
+    
+  }
+  .sen {
+    color: #ccc;
+    &:hover, &:focus {
+      color: #ccc;
+    }
+  }
+  
+  .form-inline > .form-group {
+    padding-top: 2%;
+    color: black;
+  }
+  

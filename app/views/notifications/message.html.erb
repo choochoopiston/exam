@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="row" style="background-color:#F6F7F9;border:1px solid #ddd;border-bottom: 0px;">
+      <h4 style="padding-left: 10px;"><i class="fa fa-envelope"></i> メッセージお知らせ一覧</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="row" style="background-color:white;border:1px solid #ddd; padding: 5px;">
+    <% @notifications_messages.each do |notifications_message| %>
+
+      <div class="row" style="margin: 5px 0 5px 0; border:0.1px solid #ddd">
+        <div class="col-sm-2" style="padding: 0;">
+          <%= profile_img_ratio(notifications_message.sender, 50, 50) %>
+        </div>
+        <div class="notfication-list col-sm-10" style="padding: 0;word-wrap:break-word;">
+          <%= link_to notifications_message.sender.name, conversation_messages_path(notifications_message.message.conversation) %>さんからメッセージが届きました。<br>
+          <i class="fa fa-clock-o"></i>&ensp;<%= posted_time(notifications_message.created_at) %>
+        </div>
+      </div>
+
+    <% end %>
+    </div>
+  </div>
+</div>

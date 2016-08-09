@@ -1,0 +1,2 @@
+$('#topics_area').html('<%= escape_javascript(render partial: 'index', locals: { comment: @comment, comments: @comments, topics: @topics }) %>');
+$('textarea').val('')

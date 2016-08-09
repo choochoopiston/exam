@@ -3,13 +3,86 @@
 <head>
   <title>Exam</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-eval' => false %>
+  <script src="https://js.pusher.com/3.1/pusher.min.js"></script>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
+
+  
 <body>
+<div id="wrap">
+  
+  <header>
+    <%= render 'layouts/header' %>
+  </header>
+  
+  <% if user_signed_in? %>
+  <div class="container-fluid" id="content">
+    <div class="right-navi hidden-xs col-sm-2" style="padding: 5px 0 0 10px;">
+      <%= render 'layouts/rightnavi' %>
+    </div>
+    <div class="content col-xs-12 col-sm-10">
+      <p id="notice"><%= notice %><%= alert %></p>
+      <div class="jumbotron" style="margin-bottom: 0;">
+        <h1>NogiBook</h1>
+        <p>乃木坂46に関するトピックを投稿し、みんなで語ろう。</p>
+      </div>
+      <div class="middle-navi" style="margin-bottom: 10px; background-color:white; border:1px solid #ddd;border-top: 0px;border-bottom:-1px;">
+        <ul class="nav nav-tabs">
+          <li><%= link_to "トピックス一覧", root_path, 
+          :style => "display: list-item; padding: 1px 10px 1px 10px; margin: 5px;" %></li>
+          <li><%= link_to "ユーザ一覧", users_path, 
+          :style => "display: list-item; padding: 1px 10px 1px 10px; margin: 5px; border-left-style: solid; border-left-color: #C0C0C0;" %></li>
+          <li><%= link_to "メッセージ一覧", conversations_path, 
+          :style => "display: list-item; padding: 1px 10px 1px 10px; margin: 5px; border-left-style: solid; border-left-color: #C0C0C0;" %></li>
+          <li><%= link_to "管理画面（管理者のみ）", rails_admin_path, 
+          :style => "display: list-item; padding: 1px 10px 1px 10px; margin: 5px; border-left-style: solid; border-left-color: #C0C0C0;" %></li>
+        </ul>
+      </div>
+      <div class="col-sm-8">
+      <%= yield %>
+      </div>
+      <div class="col-sm-4 hidden-xs">
+        <div class="left-navi row">
+        <%= render 'layouts/leftnavi' %>
+        </div>
 
-<%= yield %>
+      </div>
+    </div>
+  </div>
+  <% else %>
+  <div class="container-fluid" id="content">
 
+    <div class="right-navi col-sm-6 hidden-xs" style="margin-top: 1.5%;">
+      <div class="jumbotron">
+        <h1>NogiBook</h1>
+        <p>乃木坂46に関するトピックを投稿し、みんなで語ろう。</p>
+      </div>
+    </div>
+    <div class="right-navi col-xs-12 hidden-sm hidden-md hidden-lg">
+      <div class="jumbotron">
+        <h1>NogiBook</h1>
+        <p>乃木坂46に関するトピックを投稿し、みんなで語ろう。</p>
+      </div>
+    </div>
+    <div class="content col-sm-6">
+      <p id="notice"><%= notice %><%= alert %></p>
+      <%= yield %>
+    </div>
+
+  </div>
+  <% end %>
+
+  <footer>
+    <p>NogiBook @ 2016</p>
+  </footer>
+
+</div>
 </body>
+
+
+
+
 </html>

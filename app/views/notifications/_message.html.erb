@@ -1,0 +1,16 @@
+<li>
+    <% if notifications_messages.present? %>
+        <% notifications_messages.each do |notifications_message| %>
+            <% if notifications_message.read != true %>
+            <div class="container-fluid">
+                <span class="label label-pill label-warning">未読</span>
+                <small style="color:black;"><%= notifications_message.sender.name %>さんからメッセージが届きました。</small><br>
+                <small class="palette-paragraph text-right" style="color:black;">
+                <i class="fa fa-clock-o"></i>&ensp;<%= posted_time(notifications_message.created_at) %>
+                </small>
+            </div>
+            <% else %>
+            <% end %>
+        <% end %>
+    <% end %>
+</li>

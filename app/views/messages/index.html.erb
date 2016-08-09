@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="row" style="background-color:#F6F7F9;border:1px solid #ddd;border-bottom: 0px;">
+      <h4 style="padding-left: 10px;"><i class="fa fa-envelope"></i> <%= @conversation.target_user(current_user).name + "さんとの会話" %></h4>
+      <% if @over_ten %>
+        <%= link_to '以前のメッセージ', '?m=all' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="row user-list" style="background-color:white;border:1px solid #ddd; padding: 5px;">
+  <% @messages.each do |message| %>
+    <% if message.body %>
+      <% user = User.find(message.user_id) %>
+      <% if user != current_user %>
+      <div class="row" style="margin: 5px 0 5px 0; border:0.1px solid #ddd">
+        <div class="col-sm-2" style="padding: 0;">
+          <%= profile_img_ratio(user, 50, 50) %>
+        </div>
+        <div class="col-sm-8" style="padding: 0;">
+            <%= user.name %> | <%= message.time_format %><br>
+            <%= message.body %>
+        </div>
+      </div>
+      <% else %>
+      <div class="row" style="margin: 5px 0 5px 0; border:0.1px solid #ddd">
+
+        <div class="col-sm-offset-2 col-sm-8" style="padding: 0;text-align:right;">
+            <%= user.name %> | <%= message.time_format %><br>
+            <%= message.body %>
+        </div>
+
+        <div class="col-sm-2" style="padding: 0;text-align:right;">
+          <%= profile_img_ratio(user, 50, 50) %>
+        </div>
+      </div>
+      <% end %>
+    <% end %>
+    <% end %>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+<%= form_for [@conversation, @message], html: {class: 'form-horizontal'} do |f| %>
+  <div class="field">
+    <%= f.text_area :body, class: "form-control" %>
+  </div>
+    <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
+  <div>
+    <%= f.submit "メッセージを送る", class: "btn btn-success", style: "margin-bottom: 10px;" %>
+  </div>
+
+<% end %>
+</div>

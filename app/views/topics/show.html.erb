@@ -1,19 +1,37 @@
-<p id="notice"><%= notice %></p>
+<div class="row" style="background-color:white;border:1px solid #ddd;border-bottom:0;">
+  
+  <div class="row" style="padding:5px;">
+    <div class="col-sm-1 control-label" style="padding:3px 0 0 15px;">
+      <%= profile_img_ratio(@topic.user, 40, 40) %>
+    </div>
+    <div class="col-sm-10">
+      <%= @topic.user.name + "さんがトピックを作成しました。" %></br>
+      <%= @topic.created_at.strftime("%m/%d/%y at %l:%M %p") %>
+    </div>
+    <div class="col-sm-1 dropdown" style="text-align: right;">
+      <% if @topic.user == current_user %>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li><%= link_to "編集", edit_topic_path(@topic) %></li>
+          <li><%= link_to "削除", @topic, method: :delete, data: { confirm: '本当に削除していいですか？'} %></li>
+        </ul>
+      <% else %>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="row" style="padding:0 0 0 5px;">
+    <div class="col-sm-1">
+      <%= simple_format(@topic.content) %>
+    </div>
+  </div>
+</div>
+<div class="row" style="background-color:#f5f5f5;border:1px solid #ddd;border-top:0px;">
+  <div id="comments_area">
+      <%= render partial: 'comments/index', locals: { comments: @comments, topic: @topic } %>
+  </div>
 
-<p>
-  <strong>Title:</strong>
-  <%= @topic.title %>
-</p>
+  <%= render partial: 'comments/form', locals: { comment: @comment, topic: @topic } %>
 
-<p>
-  <strong>Content:</strong>
-  <%= @topic.content %>
-</p>
+</div>
 
-<p>
-  <strong>User:</strong>
-  <%= @topic.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_topic_path(@topic) %> |
-<%= link_to 'Back', topics_path %>

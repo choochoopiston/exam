@@ -1,0 +1,19 @@
+<li>
+    <% if notifications.present? %>
+        <% notifications.each do |notification| %>
+            <% if notification.read != true %>
+            <div class="container-fluid">
+                <% unless notification.comment.nil? %>
+                <span class="label label-pill label-warning">未読</span>
+                <small style="color:black;">トピック「<%= truncate(notification.comment.topic.content, length: 10, separator: '.') %>」に<%= notification.sender.name %>さんがコメントしました。</small><br>
+                <small class="palette-paragraph text-right" style="color:black;">
+                <i class="fa fa-clock-o"></i>&ensp;<%= posted_time(notification.created_at) %>
+                </small>
+                <% else %>
+                <% end %>
+            </div>
+            <% else %>
+            <% end %>
+        <% end %>
+    <% end %>
+</li>

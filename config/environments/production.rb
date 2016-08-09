@@ -1,4 +1,8 @@
 Rails.application.configure do
+  
+  require 'dotenv'
+  Dotenv.load
+  
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -76,4 +80,28 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_mailer.default_url_options = { host: '52.196.225.39' }
+
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+
+    :enable_starttls_auto => true,
+    :address => "smtp.gmail.com",
+    :port => 587,
+    :domain => 'gmail.com',
+    :authentication => 'plain',
+    :user_name => ENV["GMAIL_ADDRESS"],
+    :password => ENV["GMAIL_PASSWORD"],
+  }
+  
+  require 'pusher'
+  
+  Pusher.app_id = ENV['PD_PUSHER_APP_ID']
+  Pusher.key = ENV["PD_PUSHER_ACCESS_KEY"]
+  Pusher.secret = ENV["PD_PUSHER_ACCESS_KEY_SECRET"]
+  Pusher.logger = Rails.logger
+  Pusher.encrypted = true
+  
 end

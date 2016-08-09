@@ -1,0 +1,34 @@
+相互フォロー:
+<hr>
+<% @followed_eachothers.each do |followed_eachother| %>
+    <% if followed_eachother.name %>
+    <div class="row">
+        <div class="col-sm-4">
+            <%= profile_img_height(followed_eachother, 50,) %>
+        </div>
+        <div class="col-sm-8" style="padding: 0;">
+            <%= followed_eachother.name %><br>
+            <%= link_to '>>メッセージ送信/内容', 
+            conversations_path(sender_id: current_user.id, recipient_id: followed_eachother.id), method: 'post'%>
+        </div>
+    </div>
+    <% end %>
+<% end %>
+<br>
+
+フォロー中:
+<hr>
+<% @followed_users.order("created_at DESC").each do |followed_user| %>
+    <% if followed_user.name %>
+    <%= profile_img_height(followed_user, 50,) %>
+    <% end %>
+<% end %>
+<br>
+
+フォロワー:
+<hr>
+<% @followers.order("created_at DESC").each do |follower| %>
+    <% if follower.name %>
+    <%= profile_img_height(follower, 50,) %>
+    <% end %>
+<% end %>

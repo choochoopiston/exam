@@ -1,0 +1,16 @@
+<li>
+    <% if notifications_followers.present? %>
+        <% notifications_followers.each do |notifications_follower| %>
+            <% if notifications_follower.read != true %>
+            <div class="container-fluid">
+                <span class="label label-pill label-warning">未読</span>
+                <small style="color:black;"><%= notifications_follower.sender.name %>さんからフォローされました。</small><br>
+                <small class="palette-paragraph text-right" style="color:black;">
+                <i class="fa fa-clock-o"></i>&ensp;<%= posted_time(notifications_follower.created_at) %>
+                </small>
+            </div>
+            <% else %>
+            <% end %>
+        <% end %>
+    <% end %>
+</li>

@@ -1,4 +1,8 @@
 Rails.application.configure do
+  
+  require 'dotenv'
+  Dotenv.load
+  
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -38,4 +42,16 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  
+  config.action_mailer.default_url_options = { host: 'code2-choochoopiston.c9users.io' }
+  config.action_mailer.delivery_method = :letter_opener
+  
+  require 'pusher'
+  
+  Pusher.app_id = ENV['PUSHER_APP_ID']
+  Pusher.key = ENV["PUSHER_ACCESS_KEY"]
+  Pusher.secret = ENV["PUSHER_ACCESS_KEY_SECRET"]
+  Pusher.logger = Rails.logger
+  Pusher.encrypted = true
+  
 end

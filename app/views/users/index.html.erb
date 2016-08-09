@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="row" style="background-color:#F6F7F9;border:1px solid #ddd;border-bottom: 0px;">
+      <h4 style="padding-left: 10px;"><i class="fa fa-users"></i> ユーザ一覧</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="row user-list" style="background-color:white;border:1px solid #ddd; padding: 5px;">
+    <% @users.each do |user| %>
+      <% if user != current_user %>
+      <div class="row" style="margin: 5px 0 5px 0; border:0.1px solid #ddd">
+        <div class="col-sm-2" style="padding: 0;">
+          <%= profile_img_ratio(user, 50, 50) %>
+        </div>
+        <div class="col-sm-10" style="padding: 0;">
+          <%= user.name %>
+          <%= render 'follow_form', user: user %>
+          <% if @followed_eachothers.include?(user) %>
+            <%= link_to '>>メッセージ送信/内容', 
+            conversations_path(sender_id: current_user.id, recipient_id: user.id), method: 'post'%>
+          <% else %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    <% end %>
+    </div>
+  </div>
+
+</div>

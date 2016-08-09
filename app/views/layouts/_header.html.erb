@@ -1,0 +1,77 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+
+      <%= link_to "NogiBook", root_path, class: "navbar-brand" %>
+      <button class="navbar-toggle" data-toggle="collapse" data-target="#headnavi">
+        <span class="sr-only">ヘッドナビ</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    
+    <div class="collapse navbar-collapse" id="headnavi">
+      <ul class="nav navbar-nav navbar-right">
+        <!--<li>-->
+          <% if user_signed_in? %>
+          <script data-turbolinks-eval="false">
+          　  var pusher = new Pusher('<%= Pusher.key %>');
+          　  var channel = pusher.subscribe('midoku' + <%= current_user.id.to_s %>);
+          　  channel.bind('message', function(data) { 
+          　 $("#unreadcount").html(data.unread_count)
+          　  });
+          </script>
+          <script data-turbolinks-eval="false">
+          　  var pusher = new Pusher('<%= Pusher.key %>');
+          　  var channel = pusher.subscribe('newmessage' + <%= current_user.id.to_s %>);
+          　  channel.bind('message', function(data) { 
+          　 $("#unreadmessage").html(data.unread_message_count)
+          　  });
+          </script>
+          <script data-turbolinks-eval="false">
+          　  var pusher = new Pusher('<%= Pusher.key %>');
+          　  var channel = pusher.subscribe('newfollower' + <%= current_user.id.to_s %>);
+          　  channel.bind('message', function(data) { 
+          　 $("#unreadfollower").html(data.unread_follower_count)
+          　  });
+          </script>
+          <li class="hidden-xs"><%= link_to profile_img_height(current_user, 25) + " " + current_user.name, edit_user_registration_path %></li>
+          <li class="hidden-xs disable"><a><span class="sen">|</span></a></li>
+          <li class="dropdown"><%= render 'layouts/dropdown/notifications' %></li>
+          <li class="dropdown"><%= render 'layouts/dropdown/message_notifications' %></li>
+          <li class="dropdown"><%= render 'layouts/dropdown/follower_notifications' %></li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "ユーザー設定", edit_user_registration_path %></li>
+              <li><%= link_to "管理画面", "#" %></li>
+              <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+            </ul>
+          </li>
+
+          <% else %>
+          
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'form-inline'}) do |f| %>
+
+            <li class="form-group"><%= f.email_field :email, autofocus: true, placeholder: "メールアドレス" %></li>
+            <li class="form-group"><%= f.password_field :password, autocomplete: "off", placeholder: "パスワード" %></li>
+            <li class="form-group"><%= f.submit "ログイン" %></li>
+            <li class="form-group hidden-xs disable"><a><span class="sen">／</span></a></li>
+            <li class="form-group"><%= link_to(content_tag(:i, "", class: 'fa fa-facebook-square', 
+            style: "color:white;font-size:175%;"), user_facebook_omniauth_authorize_path) %>
+            <%= link_to "FBログイン", user_facebook_omniauth_authorize_path %></li>
+            <li class="form-group"><%= link_to(content_tag(:i, "", class: 'fa fa-twitter-square',
+            style: "color:white;font-size:175%;"), user_twitter_omniauth_authorize_path) %>
+            <%= link_to "TWログイン", user_twitter_omniauth_authorize_path %></li>
+            
+            <li><%= link_to "パスワードを忘れた場合", new_password_path(resource_name) %></li>
+          <% end %>
+          <% end %>
+        <!--</li>-->
+      </ul>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>

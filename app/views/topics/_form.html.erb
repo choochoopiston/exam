@@ -1,4 +1,4 @@
-<%= form_for(@topic) do |f| %>
+<%= form_for(@topic, remote: true, html: {class: 'topic_form form-horizontal'}) do |f| %>
   <% if @topic.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@topic.errors.count, "error") %>件のエラーがあります。</h2>
@@ -11,19 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title, 'タイトル' %><br>
-    <%= f.text_field :title, class: 'form-control' %>
+  <div class="row from-group">
+
+    <div class="field col-sm-11 col-sm-push-1">
+      <%= f.text_area :content, rows: 3, placeholder: "今何してる？", class: 'form-control' %>
+    </div>
+    <div class="field col-sm-1 control-label col-sm-pull-11 hidden-xs" style="padding:3px 0 0 15px;">
+      <%= profile_img_width(current_user, 40) %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :content, '内容' %><br>
-    <%= f.text_area :content, class: 'form-control' %>
+  <div class="actions form-group" style="padding:0 0 0 15px;">
+    <div class="col-sm-offset-10 com-sm-1">
+      <%= f.submit '投稿する' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id, class: 'form-control' %>
-  </div>
-  <div class="actions">
-    <%= f.submit '投稿', class: 'btn btn-primary btn-block'  %>
-  </div>
+
 <% end %>
