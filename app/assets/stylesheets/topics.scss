@@ -74,7 +74,7 @@ footer {
 
 
 .jumbotron {
-    background: #000 url("ngz46_on.jpg") center center;
+    background: #000 image-url("ngz46_on.jpg") center center;
     background-size: cover;
     border:1px solid #ddd;
     border-bottom: 0px;
@@ -92,7 +92,7 @@ footer {
 }
 
 .right-navi > .jumbotron {
-    background: #000 url("ngz46_off.jpg") center center;
+    background: #000 image-url("ngz46_off.jpg") center center;
     background-size: cover;
     margin-top: 10px;
     p{
