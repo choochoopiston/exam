@@ -8,7 +8,7 @@ class Message < ActiveRecord::Base
     has_many :notifications, dependent: :destroy
     accepts_nested_attributes_for :notifications
   
-    validates_presence_of :content, :conversation_id, :user_id
+    validates_presence_of :body, :conversation_id, :user_id
     
 
 end

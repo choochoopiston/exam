@@ -1,6 +1,5 @@
 <% topics.order("updated_at DESC").each do |topic| %>
-
-
+<% if @followed_eachothers.include?(topic.user) || topic.user == current_user %>
 <div class="row" style="background-color:white;border:1px solid #ddd;border-bottom:0;">
   
   <div class="row" style="padding:5px;">
@@ -51,4 +50,5 @@
 
 <br />
 
+<% end %>
 <% end %>

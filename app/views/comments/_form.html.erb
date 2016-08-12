@@ -14,7 +14,7 @@
 
   <div class="from-group">
     <div class="field col-sm-1 control-label hidden-xs" style="padding:3px 0 0 0;">
-      <%= profile_img_ratio(current_user, 30, 30) %>
+      <%= profile_img_width(current_user, 30) %>
     </div>
     <div class="field col-sm-9" style="padding:3px 0 0 5px;">
       <%= f.text_area :content, rows: 1, placeholder: "コメントする", class: 'form-control' %>

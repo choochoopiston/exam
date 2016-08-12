@@ -6,4 +6,6 @@ class Comment < ActiveRecord::Base
 
   accepts_nested_attributes_for :notifications
   
+  validates :content, presence: true
+  
 end

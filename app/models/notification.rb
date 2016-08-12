@@ -9,13 +9,13 @@ class Notification < ActiveRecord::Base
     belongs_to :recipient, foreign_key: :recipient_id, class_name: 'User'
     belongs_to :comment, foreign_key: :comment_id, class_name: 'Comment'
     belongs_to :message, foreign_key: :message_id, class_name: 'Message'
-    belongs_to :follower, foreign_key: :follower_id, class_name: 'Relationship'
+    belongs_to :relationship, foreign_key: :relationship_id, class_name: 'Relationship'
     
     scope :read, -> { where(read: true) }
     scope :unread, -> { where(read: nil) }
     scope :unread_count , -> (user_id) { where.not(comment_id: nil).where(recipient_id: user_id).unread.count }
     scope :unread_message_count , -> (user_id) { where.not(message_id: nil).where(recipient_id: user_id).unread.count }
-    scope :unread_follower_count , -> (user_id) { where.not(follower_id: nil).where(recipient_id: user_id).unread.count }
+    scope :unread_follower_count , -> (user_id) { where.not(relationship_id: nil).where(recipient_id: user_id).unread.count }
     
     def self.sending_pusher(channel_user_id)
         Pusher.trigger("midoku#{channel_user_id}", 'message', { 

@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20160807125650) do
     t.integer  "message_id"
     t.integer  "follower_id"
     t.integer  "followed_id"
+    t.integer  "relationship_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end

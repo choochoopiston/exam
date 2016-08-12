@@ -1,5 +1,6 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
+  before_action :sameuser, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
   
   require 'strftimemodule'
@@ -7,7 +8,7 @@ class TopicsController < ApplicationController
   # GET /topics
   # GET /topics.json
   def index
-    @topics = Topic.where(user_id: @followed_eachothers, user_id: current_user)
+    @topics = Topic.all
     @topic = current_user.topics.build
     @comment = @topic.comments.build
     @comments = @topic.comments
@@ -83,5 +84,12 @@ class TopicsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def topic_params
       params.require(:topic).permit(:content, :user_id)
+    end
+
+    def sameuser
+      @topic = Topic.find(params[:id])
+      if current_user.id != @topic.user_id
+        redirect_to root_path
+      end
     end
 end

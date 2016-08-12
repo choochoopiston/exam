@@ -1,12 +1,11 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   after_action :sending_pusher, only: [:create]
-  
-  
+
   def index
     @topic = Topic.find(params[:topic_id])
     @comments = @topic.comments.order(updated_at: :asc)
-      if(params[:hideflg] == "1" )
+      if(params[:hide_c] == "0" )
         @excess = true
         @comments =  @comments[-2..-1]
       else
@@ -29,10 +28,13 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
-    @comment.update(comment_params)
-    @topic = @comment.topic
+    
     respond_to do |format|
+      if @comment.update(comment_params)
+         @topic = @comment.topic
         format.js
+      else
+      end
     end
   end
   
@@ -93,4 +95,6 @@ class CommentsController < ApplicationController
     def sending_pusher
       Notification.sending_pusher(@notification.recipient_id)
     end
+    
+
 end

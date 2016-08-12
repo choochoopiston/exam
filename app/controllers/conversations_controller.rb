@@ -1,4 +1,5 @@
 class ConversationsController < ApplicationController
+  
   def index
     @users = User.all  
     @conversations = Conversation.all
@@ -17,4 +18,6 @@ class ConversationsController < ApplicationController
     def conversation_params
       params.permit(:sender_id, :recipient_id)
     end
+    
+
 end

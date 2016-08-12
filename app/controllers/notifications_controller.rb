@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
   def index
     @notifications = Notification.where.not(comment_id: nil).where(recipient_id: current_user.id).order(created_at: :desc).includes({comment: [:topic]})
     @notifications.update_all(read: true)
-    @notifications_count = Notification.where(recipient_id: current_user).order(created_at: :desc).unread.count
+    @notifications_count = Notification.where.not(comment_id: nil).where(recipient_id: current_user).order(created_at: :desc).unread.count
   end
   
   def message
@@ -13,9 +13,9 @@ class NotificationsController < ApplicationController
   end
   
   def follower
-    @notifications_followers = Notification.where.not(follower_id: nil).where(recipient_id: current_user.id).order(created_at: :desc).includes({comment: [:conversation]})
+    @notifications_followers = Notification.where.not(relationship_id: nil).where(recipient_id: current_user.id).order(created_at: :desc).includes({comment: [:conversation]})
     @notifications_followers.update_all(read: true)
-    @notifications_followers_count = Notification.where.not(follower_id: nil).where(recipient_id: current_user).order(created_at: :desc).unread.count
+    @notifications_followers_count = Notification.where.not(relationship_id: nil).where(recipient_id: current_user).order(created_at: :desc).unread.count
   end
   
 end

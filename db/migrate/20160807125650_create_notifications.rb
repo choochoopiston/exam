@@ -9,6 +9,7 @@ class CreateNotifications < ActiveRecord::Migration
       t.integer :message_id
       t.integer :follower_id
       t.integer :followed_id
+      t.integer :relationship_id
 
       t.timestamps null: false
     end
