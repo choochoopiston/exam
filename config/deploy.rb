@@ -2,7 +2,9 @@
 lock '3.6.0'
 
 set :application, 'exam'
-set :repo_url, 'git@github.com:choochoopiston/exam.git'
+
+# cloneするgitのレポジトリ
+set :repo_url, ENV['REPO_URL']
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -37,16 +39,18 @@ set :deploy_to, '/var/www/exam'
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-# シンボリックリンクをはるフォルダ・ファイル
-set :linked_files, %w{.env config/secrets.yml}
-set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/uploads}
+# シンボリックリンクをはるファイル。(※後述)
+set :linked_files, fetch(:linked_files, []).push('config/secrets.yml', ".env")
+set :linked_files, %w{ config/database.yml config/secrets.yml }
+
+# シンボリックリンクをはるフォルダ。(※後述)
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
 
 # 保持するバージョンの個数(※後述)
 set :keep_releases, 5
 
 # rubyのバージョン
 set :rbenv_ruby, '2.3.0'
-set :rbenv_type, :system
 
 #出力するログのレベル。
 set :log_level, :debug

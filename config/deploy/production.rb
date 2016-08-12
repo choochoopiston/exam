@@ -7,8 +7,7 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-server '52.197.142.24', user: 'app', roles: %w{app db web}
-set :ssh_options, keys: '/home/ubuntu/.ssh/id_rsa'
+server ENV['IP_ADDRESS'], user: ENV['USER_NAME'], roles: %w{app db web}
 
 # role-based syntax
 # ==================
@@ -47,7 +46,7 @@ set :ssh_options, keys: '/home/ubuntu/.ssh/id_rsa'
 #    forward_agent: false,
 #    auth_methods: %w(password)
 #  }
-#
+set :ssh_options, keys: "~/.ssh/#{ENV['KEY_NAME']}"
 # The server-based syntax can be used to override options:
 # ------------------------------------
 # server 'example.com',
