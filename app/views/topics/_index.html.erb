@@ -14,7 +14,7 @@
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
         <ul class="dropdown-menu dropdown-menu-right">
           <li><%= link_to "詳細", topic %></li>
-          <% if @topic.user == current_user %>
+          <% if topic.user == current_user %>
           <li><%= link_to "編集", edit_topic_path(topic) %></li>
           <li><%= link_to "削除", topic, method: :delete, data: { confirm: '本当に削除していいですか？'} %></li>
           <% else %>
