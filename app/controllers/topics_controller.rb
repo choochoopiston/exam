@@ -38,7 +38,7 @@ class TopicsController < ApplicationController
     respond_to do |format|
       if @topic.save
         
-        @topics = Topic.where(user_id: @followed_eachothers, user_id: current_user)
+        @topics = Topic.all
         @comments = @topic.comments
         @comment = @topic.comments.build
         format.html { redirect_to @topic, notice: 'トピックは作成されました' }
