@@ -1,3 +1,14 @@
 // Place all the styles related to the Messages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.row--v-middle {
+  font-size: 0;
+}
+ 
+.row--v-middle > [class*="col-"] {
+  float: none;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 14px;
+}
