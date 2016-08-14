@@ -10,13 +10,20 @@ class RelationshipsController < ApplicationController
     @relationship = Relationship.find_by(followed_id: @user, follower_id: current_user)
     @notification = @relationship.notifications.build(recipient_id: @user.id, sender_id: current_user.id)
     @notification.save
-    respond_with @user
+    @relationships = Relationship.where(follower_id: current_user).pluck(:followed_id)
+    @reverse_relationships = Relationship.where(followed_id: current_user).pluck(:follower_id)
+    @followed_eachothers = User.where(id: @relationships&@reverse_relationships)
+ 
+    respond_with @user, @followed_eachothers
   end
 
   def destroy
     @user = Relationship.find(params[:id]).followed
     current_user.unfollow!(@user)
-    respond_with @user
+    @relationships = Relationship.where(follower_id: current_user).pluck(:followed_id)
+    @reverse_relationships = Relationship.where(followed_id: current_user).pluck(:follower_id)
+    @followed_eachothers = User.where(id: @relationships&@reverse_relationships)
+    respond_with @user, @followed_eachothers
   end
 
   private

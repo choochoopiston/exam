@@ -14,14 +14,14 @@ module ApplicationHelper
   end
   
   def profile_img_height(user, height)
-    return image_tag(user.avatar, alt: user.name, :height => "#{height.to_i}") if user.avatar?
+    return image_tag(user.avatar, alt: user.name, title: user.name, :height => "#{height.to_i}") if user.avatar?
     
     unless user.provider.blank?
       img_url = user.image_url
     else
       img_url = 'no_image.png'
     end
-    image_tag(img_url, :height => "#{height.to_i}", alt: user.name)
+    image_tag(img_url, :height => "#{height.to_i}", alt: user.name, title: user.name)
   end
   
   def profile_img_width(user, width)

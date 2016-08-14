@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   def current_follow
     @followed_users = current_user.followed_users
     @followers = current_user.followers
-    @followed_eachothers = current_user.followed_users.order("created_at DESC")&current_user.followers.order("created_at DESC")
+    @followed_eachothers = User.where(id: current_user.followed_users&current_user.followers)
   end
 
   PERMISSIBLE_ATTRIBUTES = %i(name avatar avatar_cache remove_avatar)

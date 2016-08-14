@@ -1,5 +1,5 @@
-相互フォロー:
-<hr>
+<div id="leftnavi_area">
+<div class="leftnavi_title">相互フォロー:</div>
 <% @followed_eachothers.each do |followed_eachother| %>
     <% if followed_eachother.name %>
     <div class="row">
@@ -14,21 +14,20 @@
     </div>
     <% end %>
 <% end %>
-<br>
 
-フォロー中:
-<hr>
+<br>
+<div class="leftnavi_title">フォロー中:</div>
 <% @followed_users.order("created_at DESC").each do |followed_user| %>
     <% if followed_user.name %>
     <%= profile_img_height(followed_user, 50,) %>
     <% end %>
 <% end %>
 <br>
-
-フォロワー:
-<hr>
+<br>
+<div class="leftnavi_title">フォロワー:</div>
 <% @followers.order("created_at DESC").each do |follower| %>
     <% if follower.name %>
     <%= profile_img_height(follower, 50,) %>
     <% end %>
 <% end %>
+</span>
