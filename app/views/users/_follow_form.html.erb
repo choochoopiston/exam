@@ -6,7 +6,12 @@
     <% end %>
   <% else %>
     <%= form_for(current_user.relationships.find_by(followed_id: user.id), html: { method: :delete }, remote: true) do |f| %>
-      <%= f.submit "-友達から削除", class: "btn btn-xs btn-default" %>
+      <%= f.submit "-友達から削除", class: "btn btn-xs btn-default" %><br>
+          <% if @followed_eachothers.include?(user) %>
+            <%= link_to '>>メッセージ送信/内容', 
+            conversations_path(sender_id: current_user.id, recipient_id: user.id), method: 'post'%>
+          <% else %>
+          <% end %>
     <% end %>
   <% end %>
 </div>
