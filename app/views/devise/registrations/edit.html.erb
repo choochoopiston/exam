@@ -3,7 +3,7 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
   
-  <% if current_user.provider == "twitter" %>
+  <% if @user.provider == "twitter" || @user.provider == "facebook" %>
   <% else %>
   <div class="form-group">
     <%= f.label :email %><br />
@@ -11,6 +11,7 @@
   </div>
   <% end %>
   <%= f.hidden_field :email %>
+  
   
   <div class="form-group">
     <%= f.label :name %><br />
@@ -29,11 +30,14 @@
         <%= f.check_box :remove_avatar %>
     <% end %>
   </div>
+  
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
+  <% if @user.provider == "twitter" || @user.provider == "facebook" %>
+  <% else %>
   <div class="form-group">
     <%= f.label "新パスワード" %> <i>(6文字以上)</i><br />
     <%= f.password_field :password, autocomplete: "off", placeholder: "パスワードを変更しない場合は空欄のまま", class: "form-control" %>
@@ -48,6 +52,8 @@
     <%= f.label :current_password %> <i></i><br />
     <%= f.password_field :current_password, autocomplete: "off", placeholder: "変更を反映させるため、現行のパスワードを入力", class: "form-control" %>
   </div>
+  </end>
+　<% end %>
 
   <div class="actions">
     <%= f.submit "アカウント情報を更新" %>
