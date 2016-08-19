@@ -57,8 +57,12 @@ class CommentsController < ApplicationController
           else
              @excess = false
           end
-        @notification = @comment.notifications.build(recipient_id: @topic.user_id, sender_id: current_user.id)
-        @notification.save
+          
+          if @topic.user_id != current_user.id
+          @notification = @comment.notifications.build(recipient_id: @topic.user_id, sender_id: current_user.id)
+          @notification.save
+          end 
+          
         format.html { redirect_to topic_path(@topic), notice: 'コメントを投稿しました。' }
         # JS形式でレスポンスを返します。
         format.js { render :index }
@@ -89,11 +93,11 @@ class CommentsController < ApplicationController
   private
     # ストロングパラメーター
     def comment_params
-      params.require(:comment).permit(:topic_id, :user_id, :content)
+      params.require(:comment).permit(:topic_id, :user_id, :content) 
     end
     
     def sending_pusher
-      Notification.sending_pusher(@notification.recipient_id)
+      Notification.sending_pusher(@notification.recipient_id) if @topic.user_id != current_user.id
     end
     
 
