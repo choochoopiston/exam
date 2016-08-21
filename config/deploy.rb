@@ -2,28 +2,35 @@
 lock '3.4.0'
 
 # デプロイするアプリケーション名
-set :application, 'achieve'
+#set :application, 'achieve'
+set :application, 'exam'
 
 # cloneするgitのレポジトリ
-set :repo_url, ENV['REPO_URL']
+#set :repo_url, ENV['REPO_URL']
+set :repo_url, 'git@github.com:choochoopiston/exam.git'
 
 # deployするブランチ。デフォルトはmasterなのでなくても可。
 set :branch, 'master'
 
 # deploy先のディレクトリ。
-set :deploy_to, '/var/www/achieve'
+#set :deploy_to, '/var/www/achieve'
+set :deploy_to, '/var/www/exam'
 
 # シンボリックリンクをはるファイル。(※後述)
-set :linked_files, fetch(:linked_files, []).push('config/secrets.yml', ".env")
-
+#set :linked_files, fetch(:linked_files, []).push('config/secrets.yml', ".env")
 # シンボリックリンクをはるフォルダ。(※後述)
-set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
+#set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
+
+# シンボリックリンクをはるフォルダ・ファイル
+set :linked_files, %w{.env config/secrets.yml}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/uploads}
 
 # 保持するバージョンの個数(※後述)
 set :keep_releases, 5
 
 # rubyのバージョン
 set :rbenv_ruby, '2.3.0'
+set :rbenv_type, :system
 
 #出力するログのレベル。
 set :log_level, :debug
