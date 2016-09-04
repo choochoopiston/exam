@@ -6,3 +6,6 @@
   =require twitter-bootstrap-static/fontawesome
   */
   
+.btn-success {
+    background-color: blue !important;
+}
